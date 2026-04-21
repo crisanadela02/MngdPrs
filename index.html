@@ -1,10 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="ro">
 <head>
-    <title>Pagina Proiect</title>
+    <meta charset="UTF-8">
+    <title>Cookies</title>
+    
+    <script>
+        // Setarea celor două cookie-uri la încărcarea paginii
+        document.cookie = "session=test GDPR; path=/"; 
+        document.cookie = "favorite_task=collect Data; path=/";
+
+        // Funcția care afișează toate cookie-urile într-o fereastră alert
+        function alertCookie() {
+            if (document.cookie) {
+                alert("Cookie-urile salvate sunt: \n" + document.cookie);
+            } else {
+                alert("Nu s-au găsit cookie-uri.");
+            }
+        }
+    </script>
 </head>
 <body>
-    <h1>Bine ați venit la Proiectul Meu</h1>
-    <p>Aceasta este o pagină găzduită pe GitHub Pages folosind tema Minimal.</p>
+
+    <h1>Laborator MDCP</h1>
+    <p>Salut</p>
+    
+    <button onclick="alertCookie()">Show cookies</button>
+
 </body>
 </html>
