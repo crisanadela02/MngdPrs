@@ -1,0 +1,2 @@
+# MngdPrs
+Proiect facultate
