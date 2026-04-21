@@ -11,36 +11,35 @@
 </head>
 <body>
 
-    <h1>Imp</h1>
+    <h1>Gestiune Cookie-uri</h1>
 
     <div class="section">
-        <h3>1.Cookie Simplu</h3>
+        <h3>1. Cookie Simplu</h3>
         <button onclick="createSimpleCookie()">Set test2=triple</button>
     </div>
 
     <div class="section">
-        <h3>2.Toate Cookie-urile</h3>
+        <h3>2. Toate Cookie-urile</h3>
         <button onclick="showAllCookies()">Afișează document.cookie</button>
         <p id="cookieDisplay" style="color: blue;"></p>
     </div>
 
     <div class="section">
-        <h3>3.Cookie specific</h3>
+        <h3>3. Cookie specific</h3>
         <input type="text" id="cookieName" placeholder="Nume cookie (ex: session)">
         <button onclick="getSpecificCookie()">Caută</button>
     </div>
 
     <div class="section">
-        <h3>4.Ștergere Cookie</h3>
-        <button onclick="deleteCookie()">Șterge 'test2'</button>
+        <h3>4. Ștergere Cookie</h3>
+        <button onclick="deleteCookie()">Șterge 'test2' de tot</button>
     </div>
 
     <script>
-        // --- EXEMPLE MDN ---
-
-        // A. Creare (Write)
+        // A. Creare - Am adaugat path=/ pentru a fi usor de gasit/sters
         function createSimpleCookie() {
-            document.cookie = "test2=triple";
+            // MODIFICARE: Adăugat path=/
+            document.cookie = "test2=triple; path=/"; 
             alert("Cookie 'test2' a fost creat!");
         }
 
@@ -50,7 +49,7 @@
             document.getElementById('cookieDisplay').innerText = allCookies || "Niciun cookie găsit.";
         }
 
-        // C. Citirea unui cookie specific (Exemplu MDN folosind .match())
+        // C. Căutare
         function getSpecificCookie() {
             const name = document.getElementById('cookieName').value;
             const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
@@ -61,15 +60,15 @@
             }
         }
 
-        // D. Ștergere (Setare dată în trecut)
+        // D. Ștergere - Folosim metoda max-age=0 care este mai sigură
         function deleteCookie() {
-            document.cookie = "test2=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            alert("Cookie 'test2' a fost șters!");
+            // MODIFICARE: Folosim max-age=0 și același path ca la creare
+            document.cookie = "test2=; max-age=0; path=/"; 
+            alert("Cookie 'test2' a fost eliminat definitiv!");
         }
 
-        // E. Exemplu avansat MDN: Cookie cu atribut 'expires' și 'path'
-        // Implementat automat la încărcare pentru exercițiu
-        document.cookie = "do_something_only_once=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; SameSite=Lax";
+        // E. Exemplu avansat
+        document.cookie = "do_something_only_once=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/; SameSite=Lax";
     </script>
 
 </body>
