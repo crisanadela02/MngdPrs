@@ -2,29 +2,75 @@
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
-    <title>Cookies</title>
-    
-    <script>
-        // Setarea celor două cookie-uri la încărcarea paginii
-        document.cookie = "session=test GDPR; path=/"; 
-        document.cookie = "favorite_task=collect Data; path=/";
-
-        // Funcția care afișează toate cookie-urile într-o fereastră alert
-        function alertCookie() {
-            if (document.cookie) {
-                alert("Cookie-urile salvate sunt: \n" + document.cookie);
-            } else {
-                alert("Nu s-au găsit cookie-uri.");
-            }
-        }
-    </script>
+    <title>Cookie</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; padding: 20px; }
+        .section { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+        button { cursor: pointer; padding: 5px 10px; }
+    </style>
 </head>
 <body>
 
-    <h1>Laborator MDCP</h1>
-    <p>Salut</p>
-    
-    <button onclick="alertCookie()">Show cookies</button>
+    <h1>Imp</h1>
+
+    <div class="section">
+        <h3>1.Cookie Simplu</h3>
+        <button onclick="createSimpleCookie()">Set test2=triple</button>
+    </div>
+
+    <div class="section">
+        <h3>2.Toate Cookie-urile</h3>
+        <button onclick="showAllCookies()">Afișează document.cookie</button>
+        <p id="cookieDisplay" style="color: blue;"></p>
+    </div>
+
+    <div class="section">
+        <h3>3.Cookie specific</h3>
+        <input type="text" id="cookieName" placeholder="Nume cookie (ex: session)">
+        <button onclick="getSpecificCookie()">Caută</button>
+    </div>
+
+    <div class="section">
+        <h3>4.Ștergere Cookie</h3>
+        <button onclick="deleteCookie()">Șterge 'test2'</button>
+    </div>
+
+    <script>
+        // --- EXEMPLE MDN ---
+
+        // A. Creare (Write)
+        function createSimpleCookie() {
+            document.cookie = "test2=triple";
+            alert("Cookie 'test2' a fost creat!");
+        }
+
+        // B. Afișare
+        function showAllCookies() {
+            const allCookies = document.cookie;
+            document.getElementById('cookieDisplay').innerText = allCookies || "Niciun cookie găsit.";
+        }
+
+        // C. Citirea unui cookie specific (Exemplu MDN folosind .match())
+        function getSpecificCookie() {
+            const name = document.getElementById('cookieName').value;
+            const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+            if (match) {
+                alert("Valoarea pentru " + name + " este: " + match[2]);
+            } else {
+                alert("Cookie-ul nu a fost găsit.");
+            }
+        }
+
+        // D. Ștergere (Setare dată în trecut)
+        function deleteCookie() {
+            document.cookie = "test2=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            alert("Cookie 'test2' a fost șters!");
+        }
+
+        // E. Exemplu avansat MDN: Cookie cu atribut 'expires' și 'path'
+        // Implementat automat la încărcare pentru exercițiu
+        document.cookie = "do_something_only_once=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; SameSite=Lax";
+    </script>
 
 </body>
 </html>
